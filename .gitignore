@@ -1,0 +1,12 @@
+# VS settings and Apple file settings
+.vscode
+.DS_Store
+
+# Folderes that I work with when debugging stuff
+Resources
+temp
+Unfinished
+
+# these are the files created when I compile a C program... They do not need to go in the repo
+*.dSYM
+*.compiled
