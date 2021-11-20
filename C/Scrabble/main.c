@@ -236,7 +236,7 @@ void addPlayMenu(char *board, Node *root)
                 {
                     if (temp != 1)
                     {
-                        goto badBoy; // bite me, gotos have legitimate uses, and this one is super reasonable, it's basically just a jmp a few lines down D:<
+                        goto badBoy2; // bite me, gotos have legitimate uses, and this one is super reasonable, it's basically just a jmp a few lines down D:<
                     }
                     y = (temp * 10) + (input - '0');
                     temp = 0;
@@ -248,7 +248,7 @@ void addPlayMenu(char *board, Node *root)
             {
                 if(substep == 0)
                 {
-                    goto badBoy; // sorry for the goTos
+                    goto badBoy2; // sorry for the goTos
                 }
                 else
                 {
@@ -261,7 +261,7 @@ void addPlayMenu(char *board, Node *root)
             }
             else
             {
-                badBoy:
+                badBoy2:
                 substep = 0;
                 temp = 0;
                 erase();
@@ -270,6 +270,7 @@ void addPlayMenu(char *board, Node *root)
                 flushinp();
             }
         }
+        // todo: steps 2 and 3 (direction and word)
         refresh();
         attroff(COLOR_PAIR(' '));
     }
