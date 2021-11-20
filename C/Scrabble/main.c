@@ -19,7 +19,7 @@ int main()
     // Init Stuff:
     Node *root = newNode();
     printf("Loading Dictionary\n");
-    int loadedWords = readFromFile(root, "/Users/mikecabatingan/Desktop/Programming/C/Scrabble/dictionary.txt");
+    int loadedWords = readFromFile(root, "./dictionary.txt");
     printf("Loaded %d words\n", loadedWords);
 
     // board init
