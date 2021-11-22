@@ -55,6 +55,7 @@ int len(char *string);
 void bestWordMenu(Node *root);
 char *bestWord(Node *root, Node *currentNode, char *currentWord, char *letters, int target);
 void debug(char *a);
+int *getCoord(char input, int x, int temp, int step, int substep);
 
 void freeNode(Node *root)
 {
@@ -668,4 +669,75 @@ char *bestWord(Node *root, Node *currentNode, char *currentWord, char *letters, 
     free(usedLetters);
     usedLetters = NULL;
     return currentWord;
+}
+
+int *getCoord(char input, int x, int temp, int step, int substep)
+{
+    int returnInfo[4];
+    int badBoy = 0; // for use if the user doesn't do good input
+    if (isChar(input) && substep == 0)
+    {
+        input = toLower(input);
+        // they've entered a character, which makes this nice and easy
+        x = input - 'a';
+        step++;
+    }
+    else if (isNum(input) && input - '0' < BS)
+    {
+        // they've entered a number, those darn twats...
+        if (substep == 0)
+        {
+            // save to temp instead
+            temp = input - '0';
+            substep++;
+        }
+        else
+        {
+            // ok I originally had a goto here
+            // and while I think it was a good use of a goto
+            // it is not a good use of a goto when I have to have 2 of them, because that is no good
+            // so here I am, rewriting this so it no longer uses gotos
+            if (temp != 1)
+            {
+                badBoy = 1; // someone has been bad D:<
+            }
+            else
+            {
+                x = (temp * 10) + (input - '0');
+                temp = 0;
+                substep = 0;
+                step++;
+            }
+        }
+    }
+    else if(input == '\n' || input == ' ')
+    {
+        if(substep == 0)
+        {
+            badBoy = 1;
+        }
+        else
+        {
+            // 1 digit word
+            x = temp;
+            temp = 0;
+            substep = 0;
+            step++;
+        }
+    }
+    if(badBoy)
+    {
+        substep = 0;
+        temp = 0;
+        erase();
+        printw("You must enter a number between 0-14, or a letter a-%c\n", 'a' + 14);
+        getch();
+        flushinp();
+    }
+    // int x, int temp, int step, int substep
+    returnInfo[0] = x;
+    returnInfo[1] = temp;
+    returnInfo[2] = step;
+    returnInfo[3] = substep;
+    return returnInfo;
 }

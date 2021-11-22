@@ -160,115 +160,22 @@ void addPlayMenu(char *board, Node *root)
         }
         else if (step == 0)
         {
-            if (isChar(input) && substep == 0)
-            {
-                input = toLower(input);
-                // they've entered a character, which makes this nice and easy
-                x = input - 'a';
-                step++;
-            }
-            else if (isNum(input) && input - '0' < BS)
-            {
-                // they've entered a number, those darn twats...
-                if (substep == 0)
-                {
-                    // save to temp instead
-                    temp = input - '0';
-                    substep++;
-                }
-                else
-                {
-                    if (temp != 1)
-                    {
-                        goto badBoy; // bite me, gotos have legitimate uses, and this one is super reasonable, it's basically just a jmp a few lines down D:<
-                    }
-                    x = (temp * 10) + (input - '0');
-                    temp = 0;
-                    substep = 0;
-                    step++;
-                }
-            }
-            else if(input == '\n' || input == ' ')
-            {
-                if(substep == 0)
-                {
-                    goto badBoy; // sorry for the goTos
-                }
-                else
-                {
-                    // 1 digit word
-                    x = temp;
-                    temp = 0;
-                    substep = 0;
-                    step++;
-                }
-            }
-            else
-            {
-                badBoy:
-                substep = 0;
-                temp = 0;
-                erase();
-                printw("You must enter a number between 0-14, or a letter a-%c\n", 'a' + 14);
-                getch();
-                flushinp();
-            }
+            // int x, int temp, int step, int substep
+            int *xInfo;
+            xInfo = getCoord(input, x, temp, step, substep);
+            x = xInfo[0];
+            temp = xInfo[1];
+            step = xInfo[2];
+            substep = xInfo[3];
         }
         else if (step == 1)
         {
-            if (isChar(input) && substep == 0)
-            {
-                input = toLower(input);
-                // they've entered a character, which makes this nice and easy
-                y = input - 'a';
-                step++;
-            }
-            else if (isNum(input) && input - '0' < BS)
-            {
-                // they've entered a number, those darn twats...
-                if (substep == 0)
-                {
-                    // save to temp instead
-                    temp = input - '0';
-                    substep++;
-                }
-                else
-                {
-                    if (temp != 1)
-                    {
-                        goto badBoy2; // bite me, gotos have legitimate uses, and this one is super reasonable, it's basically just a jmp a few lines down D:<
-                    }
-                    y = (temp * 10) + (input - '0');
-                    temp = 0;
-                    substep = 0;
-                    step++;
-                }
-            }
-            else if(input == '\n' || input == ' ')
-            {
-                if(substep == 0)
-                {
-                    goto badBoy2; // sorry for the goTos
-                }
-                else
-                {
-                    // 1 digit word
-                    y = temp;
-                    temp = 0;
-                    substep = 0;
-                    step++;
-                }
-            }
-            else
-            {
-                badBoy2:
-                substep = 0;
-                temp = 0;
-                erase();
-                printw("You must enter a number between 0-14, or a letter a-%c\n", 'a' + 14);
-                getch();
-                flushinp();
-            }
+            int *yInfo;
+            yInfo = getCoord(input, y, temp, step, substep);
+            y = yInfo[0];
+            temp = yInfo[1];
+            step = yInfo[2];
+            substep = yInfo[3];
         }
         // todo: steps 2 and 3 (direction and word)
         refresh();
