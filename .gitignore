@@ -1,12 +1,15 @@
-# VS settings and Apple file settings
+# VS settings and Apple file settings.
 .vscode
 .DS_Store
 
-# Folderes that I work with when debugging stuff
+# Folderes that I work with when debugging stuff.
 Resources
-temp
+Temp
 Unfinished
 
-# these are the files created when I compile a C program... They do not need to go in the repo
+# these are the files created when I compile a C program. They do not need to go in the repo.
 *.dSYM
 *.compiled
+
+# You'll need to generate your own py-caches!
+__pycache__
