@@ -2,6 +2,8 @@
 
 Gah, this pathetic bucket of bolts isn't accurate enough to find the second star which should be nearby, if my support team of elves high above me in *SANTA'S SLEIGHT* are correct in their assessment... They tell me that there is too much error in the depth sensor to be accurate, and that we'll possibly never find which crevice the star has fallen into at this rate. If only there was a way to look at many samples together, or perhaps in larger timestamps between samples...
 
+I better delete some whitespace to save room, who knows how much memory this submarine has.
+
 ## **Code Writeup**
 
 The challenge can be seen [here](https://adventofcode.com/2021/day/1#part2)
