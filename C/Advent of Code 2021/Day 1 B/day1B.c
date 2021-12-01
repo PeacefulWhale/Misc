@@ -56,8 +56,11 @@ int main(int argc, char **argv)
     // go through the numbers array and check the sums!
     for(int i = 0; i < numbersIndex - 3; i++)
     {
-        oldNum = numbers[i] + numbers[i + 1] + numbers[i + 2];
-        newNum = numbers[i + 1] + numbers[i + 2] + numbers[i + 3];
+        // a + b + c > b + c + d
+        // is the same thing as
+        // a > d
+        oldNum = numbers[i];
+        newNum = numbers[i + 3];
         if(newNum > oldNum)
         {
             returnValue++;
