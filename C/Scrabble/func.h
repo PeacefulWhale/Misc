@@ -4,8 +4,9 @@
 
 typedef struct Node
 {
-    bool isWord;
-    struct Node **children;
+    bool isWord; // whether or not this is a word
+    struct Node **children; // pointers to children
+    int wordCount; // how many words start with this, so we can find common and uncommon words
 } Node;
 
 #define BS 15
@@ -174,6 +175,7 @@ void addWord(struct Node *root, char *word)
     char temp = toLower(*word);
     if (root != NULL)
     {
+        root -> wordCount++;
         if ((temp == '\0' || temp == '\n') || temp == 0)
         {
             root->isWord = true;
