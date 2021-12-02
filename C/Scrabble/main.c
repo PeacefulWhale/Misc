@@ -112,7 +112,7 @@ void addPlayMenu(char *board, Node *root)
     word[0] = '\0';
     char *tempX, *tempY;
     tempX = malloc(sizeof *tempX * 3); // temp for this only needs to be 3 characters long (including \0)
-    tempY = malloc(sizeof *tempY* 3);
+    tempY = malloc(sizeof *tempY * 3);
 
     strCopy(tempX, "??");
     strCopy(tempY, "??");
@@ -128,7 +128,7 @@ void addPlayMenu(char *board, Node *root)
         attron(COLOR_PAIR(' '));
         printw("| Enter Word Play |\n");
         printw("| X  Y  Dir  Word |\n");
-        if(x == -1)
+        if (x == -1)
         {
             strCopy(tempX, "??");
         }
@@ -137,7 +137,7 @@ void addPlayMenu(char *board, Node *root)
             sprintf(tempX, "%d", x);
         }
 
-        if(y == -1)
+        if (y == -1)
         {
             strCopy(tempY, "??");
         }
@@ -145,7 +145,8 @@ void addPlayMenu(char *board, Node *root)
         {
             sprintf(tempY, "%d", y);
         }
-        char *dirStr = (dir == -1) ? "???" : (dir == 0) ? "Down" : "Right"; // sorry for the fat one liner ternary thing
+        char *dirStr = (dir == -1) ? "???" : (dir == 0) ? "Down"
+                                                        : "Right"; // sorry for the fat one liner ternary thing
         char *wordStr = (len(word) > 0) ? word : "???";
         printw("| %s %s %s %s |\n\n", tempX, tempY, dirStr, wordStr);
         printw("| Press \"`\" to quit\n");

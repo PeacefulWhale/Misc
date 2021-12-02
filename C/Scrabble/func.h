@@ -4,9 +4,9 @@
 
 typedef struct Node
 {
-    bool isWord; // whether or not this is a word
+    bool isWord;            // whether or not this is a word
     struct Node **children; // pointers to children
-    int wordCount; // how many words start with this, so we can find common and uncommon words
+    int wordCount;          // how many words start with this, so we can find common and uncommon words
 } Node;
 
 #define BS 15
@@ -167,6 +167,7 @@ Node *newNode()
         node->children[i] = NULL;
     }
     node->isWord = false;
+    node->wordCount = 0;
     return node;
 }
 
@@ -175,7 +176,7 @@ void addWord(struct Node *root, char *word)
     char temp = toLower(*word);
     if (root != NULL)
     {
-        root -> wordCount++;
+        root->wordCount++;
         if ((temp == '\0' || temp == '\n') || temp == 0)
         {
             root->isWord = true;
@@ -712,9 +713,9 @@ int *getCoord(char input, int x, int temp, int step, int substep)
             }
         }
     }
-    else if(input == '\n' || input == ' ')
+    else if (input == '\n' || input == ' ')
     {
-        if(substep == 0)
+        if (substep == 0)
         {
             badBoy = 1;
         }
@@ -727,7 +728,7 @@ int *getCoord(char input, int x, int temp, int step, int substep)
             step++;
         }
     }
-    if(badBoy)
+    if (badBoy)
     {
         substep = 0;
         temp = 0;
