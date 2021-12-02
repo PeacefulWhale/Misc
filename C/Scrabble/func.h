@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ncurses.h>
+#include <ncurses.h> // for a pretty terminal *and* boolean values!
 
 typedef struct Node
 {
