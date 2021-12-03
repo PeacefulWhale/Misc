@@ -5,3 +5,7 @@ This is going to be my first advent of code and I've decided to do it in C (and 
 I'd like to thank the organizers for making this and hosting the challenge, and I hope that I am able to learn something and broaden my skills!
 
 The challenges are available [here](https://adventofcode.com/2021/)!
+
+1. [Day 1](./Day%201%20A/README.md) [& B](./Day%201%20B/README.md)
+2. [Day 2](./Day%202/README.md)
+3. [Day 3](./DAY%203/README.md)

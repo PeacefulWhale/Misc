@@ -1,0 +1,5 @@
+// You wish you could stop me!
+#include <stdio.h>
+#include <stdlib.h>
+#define BUFFSIZE 8192 * 2
+int main(int argc, char **argv) { FILE *input; input = fopen(argv[1], "r"); char buffer[BUFFSIZE]; fread(buffer, BUFFSIZE, 1, input); struct A { int depth; int horizontal; } a; a.depth = 0; a.horizontal = 0; struct B { int depth; int horizontal; int aim; } b; b.depth = 0; b.horizontal = 0; b.aim = 0; int index = 0; while(index < BUFFSIZE && buffer[index] != '\0') { int temp = 0; switch (buffer[index]) { case 'f': index += 8; temp = (buffer[index] - '0'); a.horizontal += temp; b.horizontal += temp; b.depth += (b.aim * temp); break; case 'd': index += 5; temp = (buffer[index] - '0'); a.depth += temp; b.aim += temp; break; case 'u': index += 3; temp = (buffer[index] - '0'); a.depth -= temp; b.aim -= temp; break; } index += 2; } printf("A Solution: %d\nB Solutions: %d\n", a.depth * a.horizontal, b.depth * b.horizontal); fclose(input); }
