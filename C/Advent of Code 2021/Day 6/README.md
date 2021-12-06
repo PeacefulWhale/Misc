@@ -38,10 +38,47 @@ What about at 1,000,000 generations? And let's run them a few times to make sure
 
 `mpz_set` took 11 seconds.
 
+```C
+// 1: Get a temp integer of the fish at 0
+mpz_set(temp, fish[0]);
+mpz_add(bigNum, bigNum, temp);
+// 2: "Age" all the fish.
+for (int i = 1; i <= 8; i++)
+{
+    mpz_set(fish[i - 1], fish[i]);
+}
+// 3: Add temp back to the fish.
+mpz_add(fish[6], fish[6], temp);
+mpz_set(fish[8], temp);
+```
+
 `offset` took 9 seconds.
+
+```C
+// 1: Get a temp integer of the fish at 0
+mpz_set(temp, fish[offset % 9]);
+mpz_add(bigNum, bigNum, temp);
+// 2: "Age" all the fish.
+offset++;
+// 3: Add temp back to the fish.
+mpz_add(fish[(offset + 6) % 9], fish[(offset + 6) % 9], temp);
+mpz_set(fish[(offset + 8) % 9], temp);
+```
 
 So it looks like my offset method *is* quicker, by ~15%
 
 This problem is remarkably similar to the fibonacci rabbit problem, which makes me think that an equation for this is very likely possible. However I am currently too lazy to try to figure it out, so I won't.
 
 Either way my method is speedy (thank you `gcc -03` and `gmp -h`).
+
+Here are some calculated numbers:
+
+```text
+1,000 generations:
+// 24657915758996082910171105512555077825557
+10,000 generations:
+// We get a number with 381 digits.
+1,000,000 generations:
+// (1 minute later)
+// It returns a number with 37838 digits... Neat!
+```
