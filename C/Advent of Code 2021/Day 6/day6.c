@@ -60,9 +60,6 @@ int main(int argc, char **argv)
     }
     // We now have our initial fish ready for simulation.
     int offset = 0;
-    int zero = offset % 9;
-    int six = (offset + 6) % 9;
-    int eight = (offset + 8) % 9;
     for (int gen = 1; gen <= generations; gen++)
     {
         mpz_t temp;
@@ -72,11 +69,10 @@ int main(int argc, char **argv)
         mpz_set(temp, fish[offset % 9]);
         mpz_add(bigNum, bigNum, temp);
         // 2: "Age" all the fish.
-        offset++;
+        offset = (offset == 9) ? 0 : offset + 1;
         // 3: Add temp back to the fish.
         mpz_add(fish[(offset + 6) % 9], fish[(offset + 6) % 9], temp);
         mpz_set(fish[(offset + 8) % 9], temp);
-        
     }
     printf("Solution:\n");
     gmp_printf("%Zd\n", bigNum);

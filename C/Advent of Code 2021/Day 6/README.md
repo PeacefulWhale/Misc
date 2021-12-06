@@ -79,6 +79,6 @@ Here are some calculated numbers:
 10,000 generations:
 // We get a number with 381 digits.
 1,000,000 generations:
-// (1 minute later)
+// (10 seconds later)
 // It returns a number with 37838 digits... Neat!
 ```
