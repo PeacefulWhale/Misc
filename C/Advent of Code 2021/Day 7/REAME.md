@@ -23,3 +23,13 @@ To be honest my brain is a bit smooth right now, and I've got a lot of homework 
 Please forgive me Gods of coding, for I have failed you.
 
 Even though it runs near instantly (0.01s for both) I know that this is not nearly the most efficient method. I may come back to this later and implement a faster approach (for part A at least, as I know that a modified quick or merge sort is faster than this for finding the linear median)
+
+## **NOTE**
+
+I figured out a more efficient way to do this. As I stated earlier, part A can be solved with a median. Part B can be solved with a mean rounded up or down (it depends).
+
+Part A being the median is because the median has an equal number of elements on each side. Moving it to the left would everything less than it to loose a step it needs to take, and everything on the right to gain a step. The total steps needed to minimize this is the median itself.
+
+For why the mean (rounded in a pattern I can't identify) works, my best guess is the explanation for the geometric median, or how scaling shapes proportional to their distance to the median doesn't actually change the median? We might be able to imagine the dots as 2D points with their fuel cost and their distance from the mean?
+
+I might implement a mean and median solver later, currently I've got school work and mid terms soon ;_;
