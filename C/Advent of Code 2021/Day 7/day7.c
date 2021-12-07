@@ -127,6 +127,7 @@ int main(int argc, char **argv)
         }
         fuelCost = 0;
         helper = 1;
+        // From crab to start.
         for(int j = tempNum - 1; j >= 0; j--)
         {
             fuelCost += helper++;
