@@ -13,3 +13,4 @@ The challenges are available [here](https://adventofcode.com/2021/)!
 5. [Day 5](./Day%205/README.md)
 6. [Day 6](./Day%206/README.md)
 7. [Day 7](./Day%207/README.md)
+8. [Day 8](./Day%208/README.md)
