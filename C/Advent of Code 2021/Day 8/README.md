@@ -96,11 +96,6 @@ At this point we have 1, 2, 3, 4, and 5 mapped, which only leaves 0 and 6. And w
 
 Now we know where each character maps to, and we can find the number it represents. From here it's just simple addition and we find the solution to part B!
 
-These means we need to keep track of the following when we're calculating the total number of times a character appears:
-
-- One
-- Four
-
 These numbers create a 4 digit number that we add to our solution.
 
 After we get the numbers we have to repeat this for every line.
