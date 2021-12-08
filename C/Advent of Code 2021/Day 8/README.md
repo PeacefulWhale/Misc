@@ -88,9 +88,9 @@ From this we can find a few givens from our scrambled 10 digits:
 
 This means we will always be able to find out which characters map to 1, 4 and 5.
 
-Because we know that which character is 5, we know which character is 2 because number 1 maps to 2 and 5 only.
+Because we know that which character is 5, we know which character is 2 because **number one** maps to 2 and 5 only.
 
-With 1, 2, and 5 we know which maps to 3 because 4 only maps to 1, 2, 3, and 5.
+With 1, 2, and 5 we know which maps to 3 because **number four** only maps to 1, 2, 3, and 5.
 
 At this point we have 1, 2, 3, 4, and 5 mapped, which only leaves 0 and 6. And we know that 0 appears 1 more time than 6, so we can find these two as well.
 
