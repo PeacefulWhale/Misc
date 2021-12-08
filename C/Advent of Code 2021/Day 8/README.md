@@ -30,7 +30,7 @@ Number | # of on segments
 
 So if I had to guess the 10 inputs before the `|` tell us the patterns of the output digits, and the 4 numbers after `|` are digits. The pattern that they use to light up is not guaranteed to be the same I guess. However because 1, 4, 7 and 8 are the only digits with the specific numbers on, we know to just look for segments of that length.
 
-Because I'm pretty sure that part B requires us to find out what all the digits are, I'm not going to write a lot of code for this, and am instead going to utilize a quick and easy regex search to find the solution to part A.
+Because I'm pretty sure that part B requires us to find out what all the digits are, I'm not going to write a lot of code for this, and instead I am going to utilize a quick and easy regex search to find the solution to part A.
 
 To do this I did 2 regex stuff. I used `(?<=\|).*` to copy only the stuff after `|`. I could have also used the column select from VSCode but that would require scrolling a lot.
 
