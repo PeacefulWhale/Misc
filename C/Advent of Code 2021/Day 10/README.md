@@ -21,3 +21,19 @@ This day was really simple, one of the easiest days yet tbh.
 I created a "stack" and pushed stuff and popped stuff to get part A and part B.
 
 I did implement a quick-sort for finding the median in part B, and by implement I mean calling `qsort` from `stdlib.h`. I was feeling extra lazy today, and I refuse to apologize for it!
+
+One neat thing I did do was checking if the symbols matched by checking to see if they were within 3 integers of each other
+
+```C
+// Char     Int
+// {        123
+// }        125
+// [        91
+// ]        93
+// <        60
+// >        62
+// (        40
+// )        41
+```
+
+I wonder, what's between a lot of them? After having checked, it looks like `\|=`, neat.

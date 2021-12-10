@@ -193,16 +193,6 @@ int isLeft(char c)
 
 int match (char a, char b)
 {
-    // Check if the two characters match!
-    // Char     Int
-    // {        123
-    // }        125
-    // [        91
-    // ]        93
-    // <        60
-    // >        62
-    // (        40
-    // )        41
     if (b - a <= 3 && b - a >= -3)
     {
         return 1;
