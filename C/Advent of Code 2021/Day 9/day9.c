@@ -126,6 +126,7 @@ int main(int argc, char **argv)
     // Part B solution: 1198704
     return 0;
 }
+
 int basinSize(char *map, int x, int y, int width, int height)
 {
     // Find the basin size.
