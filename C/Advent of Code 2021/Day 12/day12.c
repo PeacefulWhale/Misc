@@ -32,7 +32,6 @@ int main(int argc, char **argv)
     if (argv[1] == NULL)
     {
         printf("Invalid Input!\n");
-        printf("Please call with \"day7 [input file]\n");
         return 1;
     }
     FILE *input;
