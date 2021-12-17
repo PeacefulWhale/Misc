@@ -58,7 +58,7 @@ int main(int argc, char **argv)
     printf("Part A Solution: %d\n", partA);
     // 957
     printf("Part B Solution: %llu\n", partB);
-
+    // 744953223228
     free(buffer);
     return 0;
 }
@@ -240,8 +240,7 @@ unsigned long long int binToInt(const char *restrict c, const int len)
     {
         if (c[i] == '1')
         {
-            unsigned long long int one = 1;
-            returnVal += (one << ((len - 1) - i));
+            returnVal += (1ULL << ((len - 1) - i));
         }
     }
     return returnVal;
