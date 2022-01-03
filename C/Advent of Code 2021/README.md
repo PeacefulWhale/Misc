@@ -26,3 +26,4 @@ The challenges are available [here](https://adventofcode.com/2021/)!
 18. [Day 18 Writeup](./Day%2018/README.md), [Code](./Day%2018/day18.c)
 19. [Day 19 Writeup](./Day%2019/README.md), [Code](./Day%2019/day19.c)
 20. [Day 20 Writeup](./Day%2020/README.md), [Code](./Day%2020/day20.c)
+21. [Day 21 Writeup](./Day%2021/README.md), [Code](./Day%2021/day21.c)

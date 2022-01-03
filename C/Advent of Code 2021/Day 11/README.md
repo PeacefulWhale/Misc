@@ -4,7 +4,7 @@ Octopuses. Octopi? Octopussi?
 
 Whatever I guess.
 
-They're cute little guys but I don't have time to stop by, I need to get out of this cave system. Only one small problem: the submarine refuses to leave until we anayalyze them.
+They're cute little guys but I don't have time to stop by, I need to get out of this cave system. Only one small problem: the submarine refuses to leave until we analyze them.
 
 Just my luck...
 
