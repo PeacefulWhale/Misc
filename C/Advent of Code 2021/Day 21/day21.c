@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #define TARGETSCORE 21 // Part B Target score.
-#define MAXSCORE 30   // Max score possible for the cache is target + 10.
+#define MAXSCORE 30   // Max score possible for the cache.
 
 typedef struct Player
 {
@@ -56,7 +56,6 @@ int main(int argc, char **argv)
     // 752745
 
     // For part B we need to discuss *parallel universes*...
-
     doubleLong wins;
     wins.value[0] = 0;
     wins.value[1] = 0;
@@ -104,7 +103,6 @@ doubleLong partB(Player one, Player two, int player)
         returnValue.value[player] = 1;
         returnValue.value[!player] = 0;
     }
-    // Testing to see what happens when the cache is disabled.
     else if (cache[one.pos - 1][two.pos - 1][one.score][two.score][player].value[0] != 0 &&
              cache[one.pos - 1][two.pos - 1][one.score][two.score][player].value[1] != 0)
     {
@@ -126,9 +124,11 @@ doubleLong partB(Player one, Player two, int player)
                     tempTwo = two;
                     // We now swap the current player.
                     currentPlayer = player ? &tempOne : &tempTwo;
+                    // Find the new player position and score.
                     currentPlayer->pos += (x + y + z);
                     currentPlayer->pos = ((currentPlayer->pos - 1) % 10) + 1;
                     currentPlayer->score += currentPlayer->pos;
+                    // Traverse the possible universes!
                     returnValue = addDoubleLong(returnValue, partB(tempOne, tempTwo, !player));
                 }
             }
@@ -136,7 +136,8 @@ doubleLong partB(Player one, Player two, int player)
     }
     // Cache the returnValue.
     cache[one.pos - 1][two.pos - 1][one.score][two.score][player] = returnValue;
-    // Also cache the "mirror universe"
+    // Also cache the "mirror universe".
+    // I don't know if this actually does anything, and if it's even correct.
     cache[two.pos - 1][one.pos - 1][two.score][one.score][!player].value[0] = returnValue.value[1];
     cache[two.pos - 1][one.pos - 1][two.score][one.score][!player].value[1] = returnValue.value[0];
     return returnValue;
