@@ -34,9 +34,9 @@ const char BC[8][8] =
 };
 
 void addWord(struct Node *root, char *word);
-bool isChar(unsigned char c);
-bool isNum(unsigned char c);
-bool isDel(unsigned char c);
+bool isChar(char c);
+bool isNum(char c);
+bool isDel(char c);
 char toLower(char c);
 Node *newNode();
 void printTree(struct Node *root);
@@ -57,7 +57,6 @@ bool isIn(char a, char *b);
 int len(char *string);
 void bestWordMenu(Node *root);
 char *bestWord(Node *root, Node *currentNode, char *currentWord, char *letters, int target);
-void debug(char *a);
 void getCoord(int *restrict coord, char input, int x, int temp, int step, int substep);
 
 void freeNode(Node *root)
@@ -137,20 +136,19 @@ char toLower(char c)
     return c;
 }
 
-bool isChar(unsigned char c)
+bool isChar(char c)
 {
     return ((('a' <= c && 'z' >= c) || ('A' <= c && 'Z' >= c)));
 }
 
-bool isNum(unsigned char c)
+bool isNum(char c)
 {
     return ('0' <= c && c <= '9');
 }
 
-bool isDel(unsigned char c)
+bool isDel(char c)
 {
-    // I don't think it will ever be 224, but I'll have it just in case.
-    return (c == 127 || c == 8 || c == 224);
+    return (c == 127 || c == 8);
 }
 
 Node *newNode()
@@ -333,7 +331,7 @@ int letterScore(char letter)
 void wordScoreMenu(Node *root)
 {
     attron(COLOR_PAIR(' '));
-    unsigned char word[16];
+    char word[16];
     for (int i = 0; i < 15;) // max word length = 15 characters
     {
         erase();
@@ -432,7 +430,7 @@ int len(char *string)
 void bestWordMenu(Node *root)
 {
     attron(COLOR_PAIR(' '));
-    unsigned char word[BS + 1];
+    char letters[MAXTILES + 1];
     // Get Word Loop
     for (int i = 0; i < MAXTILES;) // max word length
     {
@@ -441,7 +439,7 @@ void bestWordMenu(Node *root)
         printw("\"");
         for (int ii = 0; ii < i; ii++)
         {
-            printw("%c", word[ii]);
+            printw("%c", letters[ii]);
             if (ii < i - 1)
             {
                 printw(" ");
@@ -450,29 +448,29 @@ void bestWordMenu(Node *root)
         printw("\"\n");
         refresh();
 
-        word[i] = getch();
+        letters[i] = getch();
         flushinp();
 
-        if (isChar(word[i]))
+        if (isChar(letters[i]))
         {
-            word[i] = toLower(word[i]);
+            letters[i] = toLower(letters[i]);
             i++;
         }
-        else if (isDel(word[i])) // delete or backspace
+        else if (isDel(letters[i])) // delete or backspace
         {
             i = i ? i - 1 : 0;
         }
-        else if (word[i] == '\n') // new line
+        else if (letters[i] == '\n') // new line
         {
-            word[i] = '\0';
+            letters[i] = '\0';
             break;
         }
     }
-    word[15] = '\0';
+    letters[MAXTILES] = '\0';
     erase();
 
     int target = 0;
-    unsigned char number[5];
+    char number[5];
     int i = 0;
     for (; i < 4;)
     {
@@ -494,7 +492,7 @@ void bestWordMenu(Node *root)
         {
             i++;
         }
-        else if (isDel(word[i])) // delete or backspace
+        else if (isDel(letters[i])) // delete or backspace
         {
             i = i ? i - 1 : 0;
         }
@@ -520,20 +518,19 @@ void bestWordMenu(Node *root)
             target += (number[i] - '0') * pow[powi++];
         }
     }
-
     erase();
     printw("| Finding Best Word for... |\n");
-    printw("Letters: %s\n", word);
+    printw("Letters: %s\n", letters);
     printw("Target: %d\n", target);
     refresh();
 
     char *currentWord;
-    currentWord = malloc(sizeof *currentWord * (BS + 1));
-    for (int i = 0; i < MAXTILES + 1; i++)
+    currentWord = malloc(sizeof *currentWord * (MAXTILES + 1));
+    for (int i = 0; i <= MAXTILES; i++)
     {
         currentWord[i] = '\0';
     }
-    currentWord = bestWord(root, root, currentWord, (char *)word, target);
+    currentWord = bestWord(root, root, currentWord, letters, target);
 
     flushinp();
     erase();
@@ -546,19 +543,13 @@ void bestWordMenu(Node *root)
     }
     else
     {
-        printw("| Could not find word from \"%s\" |\n", word);
+        printw("| Could not find words from \"%s\" |\n", letters);
     }
     refresh();
     free(currentWord);
     getch();
     flushinp();
     attroff(COLOR_PAIR(' '));
-}
-
-void debug(char *a)
-{
-    printw("%s\n", a);
-    refresh();
 }
 
 char *bestWord(Node *root, Node *currentNode, char *currentWord, char *letters, int target)
@@ -605,15 +596,14 @@ char *bestWord(Node *root, Node *currentNode, char *currentWord, char *letters, 
     }
     // Memory / Var Stuff
     char *cbw;
-    cbw = malloc(sizeof *cbw * (BS + 1)); // current best word
+    cbw = malloc(sizeof *cbw * (MAXTILES + 1)); // current best word
     strCopy(cbw, currentWord);            // which always starts out as currentWord
     char *usedLetters;
     usedLetters = malloc(sizeof *usedLetters * (letterLen + 1));
-    for (int i = 0; i < letterLen; i++)
+    for (int i = 0; i <= letterLen; i++)
     {
-        usedLetters[i] = '0';
+        usedLetters[i] = '\0';
     }
-    usedLetters[letterLen] = '\0';
 
     // Take letter from letters and recur with it:
     for (int i = 0; i < letterLen; i++)

@@ -256,3 +256,10 @@ void addPlayMenu(char *board, Node *root)
     free(tempY);
     tempX = tempY = word = NULL;
 }
+
+int playScore(char *board, int x, int y, int dir, char *word)
+{
+    int score = 0;
+
+    return score;
+}
