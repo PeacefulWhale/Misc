@@ -13,6 +13,7 @@
 void mainLoop(char *board, Node *root);
 void addPlayMenu(char *board, Node *root);
 void addPlay(char *board, int x, int y, int dir, char *word);
+int playScore(char *board, int x, int y, int dir, char *word);
 
 int main()
 {
@@ -134,7 +135,7 @@ void addPlayMenu(char *board, Node *root)
         }
         else
         {
-            sprintf(tempX, "%d", x);
+            sprintf(tempX, "%2d", x);
         }
 
         if (y == -1)
@@ -143,13 +144,32 @@ void addPlayMenu(char *board, Node *root)
         }
         else
         {
-            sprintf(tempY, "%d", y);
+            sprintf(tempY, "%2d", y);
         }
+        // If dir is -1, it hasn't been set.
+
         char *dirStr = (dir == -1) ? "???" : (dir == 0) ? "Down"
                                                         : "Right"; // sorry for the fat one liner ternary thing
         char *wordStr = (len(word) > 0) ? word : "???";
         printw("| %s %s %s %s |\n\n", tempX, tempY, dirStr, wordStr);
         printw("| Press \"`\" to quit\n");
+        // Input Instructions:
+        switch (step)
+        {
+        case 0:
+            printw("Enter X Coord\n");
+            break;
+        case 1:
+            printw("Enter Y Coord\n");
+            break;
+        case 2:
+            substep = 0; // Reset substep so we can use it later for the word.
+            printw("Enter Direction with 0/d or 1/r\n");
+            break;
+        case 3:
+            printw("Enter Word\n");
+            break;
+        }
         refresh();
         // get X / Y coords
         // accept number or letter for either of them
@@ -159,29 +179,78 @@ void addPlayMenu(char *board, Node *root)
         {
             break;
         }
-        else if (step == 0)
+        else
         {
-            // int x, int temp, int step, int substep
-            int *xInfo;
-            xInfo = getCoord(input, x, temp, step, substep);
-            x = xInfo[0];
-            temp = xInfo[1];
-            step = xInfo[2];
-            substep = xInfo[3];
+            switch (step)
+            {
+            // I really don't like how Prettier handles switch statements...
+            case 0: // X Coordinate.
+            {
+                int xInfo[4];
+                getCoord(xInfo, input, x, temp, step, substep);
+                x = xInfo[0];
+                temp = xInfo[1];
+                step = xInfo[2];
+                substep = xInfo[3];
+                break;
+            }
+            case 1: // Y Coordinate.
+            {
+                int yInfo[4];
+                getCoord(yInfo, input, y, temp, step, substep);
+                y = yInfo[0];
+                temp = yInfo[1];
+                step = yInfo[2];
+                substep = yInfo[3];
+                break;
+            }
+            case 2: // Direction.
+            {
+                switch (input)
+                {
+                case '0':
+                case 'd':
+                    dir = 0;
+                    break;
+                case '1':
+                case 'r':
+                    dir = 1;
+                    break;
+                default:
+                    clear();
+                    printw("You must enter 0/d or 1/r!\n");
+                    refresh();
+                    getch();
+                }
+                if (dir != -1)
+                {
+                    step++;
+                }
+            }
+            case 3: // Word.
+            {
+                if (substep == BS || input == '\n' || input == ' ')  // New line / max word size.
+                {
+                    step++;
+                }
+                else if (isChar(input))
+                {
+                    word[substep++] = input;
+                }
+                else if (isDel(input)) // Delete or backspace.
+                {
+                    substep = substep ? substep - 1 : 0;
+                }
+                word[substep] = '\0';
+            }
+            }
         }
-        else if (step == 1)
-        {
-            int *yInfo;
-            yInfo = getCoord(input, y, temp, step, substep);
-            y = yInfo[0];
-            temp = yInfo[1];
-            step = yInfo[2];
-            substep = yInfo[3];
-        }
-        // todo: steps 2 and 3 (direction and word)
         refresh();
         attroff(COLOR_PAIR(' '));
     }
+
+    // We now have our input, and can actually add the play to the board!
+    // We will calclate the score of the play, display it, and then ask the user if they want to add it to the board.
     free(word);
     free(tempX);
     free(tempY);

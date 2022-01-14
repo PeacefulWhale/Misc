@@ -10,6 +10,7 @@ typedef struct Node
 } Node;
 
 #define BS 15
+#define MAXTILES 7 // Max number of tiles one can draw.
 
 /* Board Color (BC) Determines bonus points
  * T = Triple Word Score
@@ -33,8 +34,9 @@ const char BC[8][8] =
 };
 
 void addWord(struct Node *root, char *word);
-bool isChar(char c);
-bool isNum(char c);
+bool isChar(unsigned char c);
+bool isNum(unsigned char c);
+bool isDel(unsigned char c);
 char toLower(char c);
 Node *newNode();
 void printTree(struct Node *root);
@@ -56,7 +58,7 @@ int len(char *string);
 void bestWordMenu(Node *root);
 char *bestWord(Node *root, Node *currentNode, char *currentWord, char *letters, int target);
 void debug(char *a);
-int *getCoord(char input, int x, int temp, int step, int substep);
+void getCoord(int *restrict coord, char input, int x, int temp, int step, int substep);
 
 void freeNode(Node *root)
 {
@@ -135,26 +137,20 @@ char toLower(char c)
     return c;
 }
 
-bool isChar(char c)
+bool isChar(unsigned char c)
 {
-    if ((('a' <= c && 'z' >= c) || ('A' <= c && 'Z' >= c)))
-    {
-        return true;
-    }
-    else
-        return false;
+    return ((('a' <= c && 'z' >= c) || ('A' <= c && 'Z' >= c)));
 }
 
-bool isNum(char c)
+bool isNum(unsigned char c)
 {
-    if ('0' <= c && c <= '9')
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ('0' <= c && c <= '9');
+}
+
+bool isDel(unsigned char c)
+{
+    // I don't think it will ever be 224, but I'll have it just in case.
+    return (c == 127 || c == 8 || c == 224);
 }
 
 Node *newNode()
@@ -358,9 +354,9 @@ void wordScoreMenu(Node *root)
             word[i] = toLower(word[i]);
             i++;
         }
-        else if ((word[i] == 127 || word[i] == 8) || word[i] == 224) // delete or backspace
+        else if (isDel(word[i])) // delete or backspace
         {
-            i = (i > 0) ? i - 1 : 0;
+            i = i ? i - 1 : 0;
         }
         else if (word[i] == '\n') // new line
         {
@@ -438,7 +434,7 @@ void bestWordMenu(Node *root)
     attron(COLOR_PAIR(' '));
     unsigned char word[BS + 1];
     // Get Word Loop
-    for (int i = 0; i < BS;) // max word length = 15 characters
+    for (int i = 0; i < MAXTILES;) // max word length
     {
         erase();
         printw("| Please Enter Your Letters |\n");
@@ -462,9 +458,9 @@ void bestWordMenu(Node *root)
             word[i] = toLower(word[i]);
             i++;
         }
-        else if ((word[i] == 127 || word[i] == 8) || word[i] == 224) // delete or backspace
+        else if (isDel(word[i])) // delete or backspace
         {
-            i = (i > 0) ? i - 1 : 0;
+            i = i ? i - 1 : 0;
         }
         else if (word[i] == '\n') // new line
         {
@@ -498,9 +494,9 @@ void bestWordMenu(Node *root)
         {
             i++;
         }
-        else if ((number[i] == 127 || number[i] == 8) || number[i] == 224) // delete or backspace
+        else if (isDel(word[i])) // delete or backspace
         {
-            i = (i > 0) ? i - 1 : 0;
+            i = i ? i - 1 : 0;
         }
         else if (number[i] == '\n') // new line
         {
@@ -533,7 +529,7 @@ void bestWordMenu(Node *root)
 
     char *currentWord;
     currentWord = malloc(sizeof *currentWord * (BS + 1));
-    for (int i = 0; i < BS + 1; i++)
+    for (int i = 0; i < MAXTILES + 1; i++)
     {
         currentWord[i] = '\0';
     }
@@ -674,9 +670,8 @@ char *bestWord(Node *root, Node *currentNode, char *currentWord, char *letters, 
     return currentWord;
 }
 
-int *getCoord(char input, int x, int temp, int step, int substep)
+void getCoord(int *restrict coord, char input, int x, int temp, int step, int substep)
 {
-    int returnInfo[4];
     int badBoy = 0; // for use if the user doesn't do good input
     if (isChar(input) && substep == 0)
     {
@@ -738,9 +733,8 @@ int *getCoord(char input, int x, int temp, int step, int substep)
         flushinp();
     }
     // int x, int temp, int step, int substep
-    returnInfo[0] = x;
-    returnInfo[1] = temp;
-    returnInfo[2] = step;
-    returnInfo[3] = substep;
-    return returnInfo;
+    coord[0] = x;
+    coord[1] = temp;
+    coord[2] = step;
+    coord[3] = substep;
 }
