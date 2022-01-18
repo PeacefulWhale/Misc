@@ -229,7 +229,7 @@ void addPlayMenu(char *board, Node *root)
             }
             case 3: // Word.
             {
-                if (substep == BS || input == '\n' || input == ' ')  // New line / max word size.
+                if (substep == BS || input == '\n' || input == ' ') // New line / max word size.
                 {
                     step++;
                 }
